@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingTop="10dp"
+    android:paddingRight="16dp"
+    android:paddingBottom="10dp">
+
+    <ImageView
+        android:id="@+id/pokemonSprite"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:src="@drawable/bulbasaur"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <TextView
+        android:id="@+id/pokemonName"
+        android:layout_height="wrap_content"
+        android:layout_width="270dp"
+        android:layout_marginStart="5sp"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="@id/pokemonSprite"
+        app:layout_constraintStart_toEndOf="@id/pokemonSprite"
+        tools:text="Bulbasaur"  />
+
+    <TextView
+        android:id="@+id/healthLabel"
+        android:layout_width="60sp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5sp"
+        app:layout_constraintTop_toBottomOf="@+id/pokemonName"
+        app:layout_constraintStart_toEndOf="@id/pokemonSprite"
+        tools:text="Health: " />
+    <TextView
+        android:id="@+id/healthValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5sp"
+        app:layout_constraintTop_toBottomOf="@+id/pokemonName"
+        app:layout_constraintStart_toEndOf="@id/healthLabel"
+        tools:text="45" />
+    <TextView
+        android:id="@+id/attackLabel"
+        android:layout_width="60sp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5sp"
+        app:layout_constraintTop_toBottomOf="@+id/healthLabel"
+        app:layout_constraintStart_toEndOf="@id/pokemonSprite"
+        tools:text="Attack: " />
+    <TextView
+        android:id="@+id/attackValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5sp"
+        app:layout_constraintTop_toBottomOf="@+id/healthValue"
+        app:layout_constraintStart_toEndOf="@id/attackLabel"
+        tools:text="49" />
+    <TextView
+        android:id="@+id/defenseLabel"
+        android:layout_width="60sp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5sp"
+        app:layout_constraintTop_toBottomOf="@+id/attackLabel"
+        app:layout_constraintStart_toEndOf="@id/pokemonSprite"
+        tools:text="Defense: " />
+    <TextView
+        android:id="@+id/defenseValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5sp"
+        app:layout_constraintTop_toBottomOf="@+id/attackValue"
+        app:layout_constraintStart_toEndOf="@id/defenseLabel"
+        tools:text="49" />
+    <TextView
+        android:id="@+id/heightLabel"
+        android:layout_width="60sp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5sp"
+        app:layout_constraintTop_toBottomOf="@+id/defenseLabel"
+        app:layout_constraintStart_toEndOf="@id/pokemonSprite"
+        tools:text="Height: " />
+    <TextView
+        android:id="@+id/heightValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5sp"
+        app:layout_constraintStart_toEndOf="@id/defenseLabel"
+        app:layout_constraintTop_toBottomOf="@+id/defenseValue"
+        tools:text="7" />
+    <TextView
+        android:id="@+id/spAttackLabel"
+        android:layout_width="110sp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60sp"
+        app:layout_constraintTop_toBottomOf="@+id/pokemonName"
+        app:layout_constraintStart_toEndOf="@id/healthValue"
+        tools:text="Special Attack: " />
+    <TextView
+        android:id="@+id/spAttackValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/pokemonName"
+        app:layout_constraintEnd_toEndOf="@id/pokemonName"
+        tools:text="65" />
+    <TextView
+        android:id="@+id/spDefenseLabel"
+        android:layout_width="110sp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60sp"
+        app:layout_constraintTop_toBottomOf="@+id/spAttackLabel"
+        app:layout_constraintStart_toEndOf="@id/attackValue"
+        tools:text="Special Defense: " />
+    <TextView
+        android:id="@+id/spDefenseValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/spAttackValue"
+        app:layout_constraintEnd_toEndOf="@id/pokemonName"
+        tools:text="65" />
+    <TextView
+        android:id="@+id/speedLabel"
+        android:layout_width="110sp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60sp"
+        app:layout_constraintTop_toBottomOf="@+id/spDefenseLabel"
+        app:layout_constraintStart_toEndOf="@id/attackValue"
+        tools:text="Speed: " />
+    <TextView
+        android:id="@+id/speedValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/spDefenseValue"
+        app:layout_constraintEnd_toEndOf="@id/pokemonName"
+        tools:text="45" />
+    <TextView
+        android:id="@+id/weightLabel"
+        android:layout_width="110sp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60sp"
+        app:layout_constraintTop_toBottomOf="@+id/speedLabel"
+        app:layout_constraintStart_toEndOf="@id/attackValue"
+        tools:text="Weight: " />
+    <TextView
+        android:id="@+id/weightValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/speedValue"
+        app:layout_constraintEnd_toEndOf="@id/pokemonName"
+        tools:text="69" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
