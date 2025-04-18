@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">PokemonApp</string>
     <string name="search">Search</string>
+    <string name="search_by_name">Search by name</string>
+    <string name="type">Type:</string>
+    <string name="can_learn_move">Can learn move:</string>
 </resources>
