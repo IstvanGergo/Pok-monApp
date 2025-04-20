@@ -4,43 +4,36 @@ import com.example.pokemonapp.model.Move.Move;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
+import java.util.Map;
 
 public class Pokemon {
-    public String name;
-    public List<MoveEntry> moves;
-    public Sprites sprites;
-    public List<StatEntry> stats;
-    public int weight;
-    public int height;
-    public List<TypeEntry> types;
+    private String name;
+    private List<MoveEntry> moves;
+    private Sprites sprites;
+    private List<StatEntry> stats;
+    private int weight;
+    private int height;
+    private List<TypeEntry> types;
 
-    public static class MoveEntry {
-        public Move move;
-        @SerializedName("version_group_details")
-        public List<VersionGroupDetail> versionGroupDetailsList;
+    public String getName(){
+        return name;
     }
-
-    public static class VersionGroupDetail {
-        public int level_learned_at;
-        @SerializedName("move_learn_method")
-        public MoveLearnMethod moveLearnMethod;
-        @SerializedName("version_group")
-        public VersionGroup versionGroup;
+    public List<MoveEntry> getMoves(){
+        return moves;
     }
-
-    public static class MoveLearnMethod {
-        public String name;
-        public String url;
+    public Sprites getSprites(){
+        return sprites;
     }
-
-    public static class VersionGroup {
-        public String name;
-        public String url;
+    public List<StatEntry> getStats() {
+        return stats;
     }
-
-    public static class Sprites {
-        @SerializedName("front_default")
-        public String frontSprite;
+    public int getWeight(){
+        return weight;
     }
-
+    public int getHeight(){
+        return height;
+    }
+    public List<TypeEntry> getTypes(){
+        return types;
+    }
 }
