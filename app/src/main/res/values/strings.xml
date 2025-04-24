@@ -4,4 +4,12 @@
     <string name="search_by_name">Search by name</string>
     <string name="type">Type:</string>
     <string name="can_learn_move">Can learn move:</string>
+    <string name="health">Health:</string>
+    <string name="attack">Attack:</string>
+    <string name="defense">Defense:</string>
+    <string name="height">Height:</string>
+    <string name="special_attack">Special Attack:</string>
+    <string name="special_defense">Special Defense:</string>
+    <string name="speed">Speed:</string>
+    <string name="weight">Weight:</string>
 </resources>
