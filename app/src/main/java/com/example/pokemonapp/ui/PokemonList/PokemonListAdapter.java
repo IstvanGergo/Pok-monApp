@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.pokemonapp.R;
 import com.example.pokemonapp.model.Pokemon.Pokemon;
 import com.example.pokemonapp.model.Pokemon.StatEntry;
@@ -57,10 +58,12 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonHolder> {
                     break;
             }
         }
+        Glide.with(holder.itemView)
+                .load(pokemon.getSprites().frontSpriteUrl)
+                .into(holder.sprite);
         holder.pokemonName.setText(pokemon.getName());
         holder.heightValue.setText(Integer.toString(pokemon.getHeight()));
         holder.weightValue.setText(Integer.toString(pokemon.getWeight()));
-        // TODO: Create and call detailed view
     }
     @Override
     public int getItemCount() {

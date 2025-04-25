@@ -12,8 +12,8 @@
 
     <ImageView
         android:id="@+id/pokemonSprite"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="100sp"
+        android:layout_height="100sp"
         android:layout_marginTop="20dp"
         android:textSize="16sp"
         android:textStyle="bold"

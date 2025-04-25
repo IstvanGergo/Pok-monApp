@@ -1,5 +1,6 @@
 package com.example.pokemonapp.ui.PokemonList;
 
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.View;
 
@@ -18,7 +19,7 @@ public class PokemonHolder extends RecyclerView.ViewHolder {
     public TextView spDefenseValue;
     public TextView speedValue;
     public TextView weightValue;
-
+    public ImageView sprite;
     public PokemonHolder(@NonNull View itemView) {
         super(itemView);
         pokemonName = itemView.findViewById(R.id.pokemonName);
@@ -30,6 +31,6 @@ public class PokemonHolder extends RecyclerView.ViewHolder {
         spDefenseValue = itemView.findViewById(R.id.spDefenseValue);
         speedValue = itemView.findViewById(R.id.speedValue);
         weightValue = itemView.findViewById(R.id.weightValue);
-
+        sprite = itemView.findViewById(R.id.pokemonSprite);
     }
 }
