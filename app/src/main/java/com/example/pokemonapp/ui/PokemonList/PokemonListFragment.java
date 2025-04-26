@@ -23,11 +23,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class PokemonListFragment extends Fragment {
     private PokemonClient pokemonClient;
-
+    Integer fetched = 0;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -37,13 +38,13 @@ public class PokemonListFragment extends Fragment {
                 .build();
         View view = inflater.inflate(R.layout.fragment_pokemon_list, container, false);
         RecyclerView pokemonRecyclerView = view.findViewById(R.id.pokemonRecyclerView);
+        RecyclerView.LayoutManager layoutManager =
+                new LinearLayoutManager(getActivity());
         // API call
         pokemonClient = retrofit.create(PokemonClient.class);
         Call<AllPokemons> call = pokemonClient.getAllPokemons();
         List<Pokemon> pokemons = new ArrayList<>();
         PokemonListAdapter adapter = new PokemonListAdapter(pokemons, this);
-        RecyclerView.LayoutManager layoutManager =
-                new LinearLayoutManager(getActivity());
         pokemonRecyclerView.setAdapter(adapter);
         pokemonRecyclerView.setLayoutManager(layoutManager);
         call.enqueue(new Callback<AllPokemons>() {
@@ -54,6 +55,7 @@ public class PokemonListFragment extends Fragment {
                             "Response code: " + response.code());
                     return;
                 }
+
                 List<BasicPokemon> basicList = response.body().getResults();
                 for( BasicPokemon basic : basicList){
                     pokemonClient.getPokemonDetail(basic.url).enqueue(new Callback<Pokemon>() {
@@ -64,18 +66,17 @@ public class PokemonListFragment extends Fragment {
                                 Log.w("Fetch pokemon",
                                         "Response code: " + response.code());
                             }
-                            Log.w("Fetching pokemon",
-                                    "pokken: "+ basic.name);
                             Pokemon newPokemon = response.body();
-
-                            Log.w("Pokemons health",
-                                    "height: " + response.body().getHeight());
+                            fetched++;
                             requireActivity().runOnUiThread(() -> {
                                 pokemons.add(newPokemon);
-                                adapter.notifyItemInserted(pokemons.size() - 1);
+                                if(fetched == basicList.size()){
+                                    pokemons.sort(Comparator.comparingInt(Pokemon::getId));
+                                    adapter.notifyItemRangeInserted(0, pokemons.size());
+                                    fetched = 0;
+                                }
                             });
                         }
-
                         @Override
                         public void onFailure(Call<Pokemon> call, Throwable t) {
                             Log.e("POKEMON", "Failed to load " + basic.name, t);
@@ -88,7 +89,7 @@ public class PokemonListFragment extends Fragment {
                 Log.e("API", "Failed to load pokémon list", t);
             }
         });
-
         return view;
     }
+
 }

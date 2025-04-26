@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Pokemon {
+    private Integer id;
     private String name;
     private List<MoveEntry> moves;
     private Sprites sprites;
@@ -14,7 +15,7 @@ public class Pokemon {
     private int weight;
     private int height;
     private List<TypeEntry> types;
-
+    public Integer getId(){ return id; }
     public String getName(){
         return name;
     }
@@ -36,4 +37,5 @@ public class Pokemon {
     public List<TypeEntry> getTypes(){
         return types;
     }
+
 }

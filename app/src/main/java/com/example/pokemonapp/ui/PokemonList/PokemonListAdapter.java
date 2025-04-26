@@ -61,9 +61,13 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonHolder> {
         Glide.with(holder.itemView)
                 .load(pokemon.getSprites().frontSpriteUrl)
                 .into(holder.sprite);
-        holder.pokemonName.setText(pokemon.getName());
-        holder.heightValue.setText(Integer.toString(pokemon.getHeight()));
-        holder.weightValue.setText(Integer.toString(pokemon.getWeight()));
+        String name = pokemon.getName();
+        String nameDisplay = name.substring(0,1).toUpperCase() + name.substring(1, name.length());
+        holder.pokemonName.setText(nameDisplay);
+        String heightDisplay = ((double)pokemon.getHeight() / 10 )  + " m";
+        holder.heightValue.setText(heightDisplay);
+        String weightDisplay = ((double)pokemon.getWeight() / 10) + " kg";
+        holder.weightValue.setText(weightDisplay);
     }
     @Override
     public int getItemCount() {
