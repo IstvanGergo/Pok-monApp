@@ -37,6 +37,8 @@ dependencies {
     implementation (libs.converter.gson)
     implementation (libs.glide)
     annotationProcessor (libs.compiler)
+    implementation (libs.navigation.fragment)
+    implementation (libs.navigation.ui)
 
     implementation(libs.appcompat)
     implementation(libs.material)

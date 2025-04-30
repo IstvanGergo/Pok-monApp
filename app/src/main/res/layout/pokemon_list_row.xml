@@ -98,9 +98,9 @@
         android:id="@+id/spAttackLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50sp"
+        android:layout_marginStart="120sp"
         app:layout_constraintTop_toBottomOf="@+id/pokemonName"
-        app:layout_constraintStart_toEndOf="@id/healthValue"
+        app:layout_constraintStart_toEndOf="@id/pokemonSprite"
         android:text="@string/special_attack" />
     <TextView
         android:id="@+id/spAttackValue"
@@ -114,9 +114,9 @@
         android:id="@+id/spDefenseLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50sp"
+        android:layout_marginStart="120sp"
         app:layout_constraintTop_toBottomOf="@+id/spAttackLabel"
-        app:layout_constraintStart_toEndOf="@id/attackValue"
+        app:layout_constraintStart_toEndOf="@id/pokemonSprite"
         android:text="@string/special_defense" />
     <TextView
         android:id="@+id/spDefenseValue"
@@ -130,9 +130,9 @@
         android:id="@+id/speedLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50sp"
-        app:layout_constraintTop_toBottomOf="@+id/spDefenseLabel"
-        app:layout_constraintStart_toEndOf="@id/attackValue"
+        android:layout_marginStart="120sp"
+        app:layout_constraintTop_toTopOf="@+id/defenseLabel"
+        app:layout_constraintStart_toEndOf="@id/pokemonSprite"
         android:text="@string/speed" />
     <TextView
         android:id="@+id/speedValue"
@@ -146,9 +146,9 @@
         android:id="@+id/weightLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50sp"
+        android:layout_marginStart="120sp"
         app:layout_constraintTop_toBottomOf="@+id/speedLabel"
-        app:layout_constraintStart_toEndOf="@id/attackValue"
+        app:layout_constraintStart_toEndOf="@id/pokemonSprite"
         android:text="@string/weight" />
     <TextView
         android:id="@+id/weightValue"

@@ -16,5 +16,5 @@ public interface PokemonClient {
     @GET
     Call<Pokemon> getPokemonDetail(@Url String url);
     @GET("pokemon/")
-    Call<Move> getSpecificPokemon(@Query("") String pokemonName);
+    Call<MoveClient> getSpecificPokemon(@Query("") String pokemonName);
 }

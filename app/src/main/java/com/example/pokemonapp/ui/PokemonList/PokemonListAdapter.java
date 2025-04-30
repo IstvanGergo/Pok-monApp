@@ -1,6 +1,5 @@
 package com.example.pokemonapp.ui.PokemonList;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +32,6 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonHolder> {
     public void onBindViewHolder(@NonNull PokemonHolder holder, int position) {
         Pokemon pokemon = pokemonList.get(position);
         List<StatEntry> stats = pokemon.getStats();
-        Log.d("Start of bind", pokemon.getName());
         for(StatEntry entry : stats){
             switch(entry.stat.name){
                 case "hp":

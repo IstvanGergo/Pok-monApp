@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pokemonapp.R;
 public class PokemonHolder extends RecyclerView.ViewHolder {
-    //TODO: Include sprite
     public TextView pokemonName;
     public TextView healthValue;
     public TextView attackValue;

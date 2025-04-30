@@ -27,12 +27,13 @@ import java.util.Comparator;
 import java.util.List;
 
 public class PokemonListFragment extends Fragment {
+    private Retrofit retrofit;
     private PokemonClient pokemonClient;
-    Integer fetched = 0;
+    private List<Pokemon> pokemons = new ArrayList<>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Retrofit retrofit = new Retrofit.Builder()
+        retrofit = new Retrofit.Builder()
                 .baseUrl("https://pokeapi.co/api/v2/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -40,13 +41,12 @@ public class PokemonListFragment extends Fragment {
         RecyclerView pokemonRecyclerView = view.findViewById(R.id.pokemonRecyclerView);
         RecyclerView.LayoutManager layoutManager =
                 new LinearLayoutManager(getActivity());
-        // API call
-        pokemonClient = retrofit.create(PokemonClient.class);
-        Call<AllPokemons> call = pokemonClient.getAllPokemons();
-        List<Pokemon> pokemons = new ArrayList<>();
         PokemonListAdapter adapter = new PokemonListAdapter(pokemons, this);
         pokemonRecyclerView.setAdapter(adapter);
         pokemonRecyclerView.setLayoutManager(layoutManager);
+        // API call
+        pokemonClient = retrofit.create(PokemonClient.class);
+        Call<AllPokemons> call = pokemonClient.getAllPokemons();
         call.enqueue(new Callback<AllPokemons>() {
             @Override
             public void onResponse(Call<AllPokemons> call, Response<AllPokemons> response) {
@@ -55,7 +55,6 @@ public class PokemonListFragment extends Fragment {
                             "Response code: " + response.code());
                     return;
                 }
-
                 List<BasicPokemon> basicList = response.body().getResults();
                 for( BasicPokemon basic : basicList){
                     pokemonClient.getPokemonDetail(basic.url).enqueue(new Callback<Pokemon>() {
@@ -67,15 +66,12 @@ public class PokemonListFragment extends Fragment {
                                         "Response code: " + response.code());
                             }
                             Pokemon newPokemon = response.body();
-                            fetched++;
-                            requireActivity().runOnUiThread(() -> {
-                                pokemons.add(newPokemon);
-                                if(fetched == basicList.size()){
-                                    pokemons.sort(Comparator.comparingInt(Pokemon::getId));
-                                    adapter.notifyItemRangeInserted(0, pokemons.size());
-                                    fetched = 0;
-                                }
-                            });
+                            pokemons.add(newPokemon);
+                            if(pokemons.size() == basicList.size()){
+                                // TODO: somehow the last pokemon is missing from the display..
+                                pokemons.sort(Comparator.comparingInt(Pokemon::getId));
+                                adapter.notifyItemRangeInserted(0, pokemons.size());
+                            }
                         }
                         @Override
                         public void onFailure(Call<Pokemon> call, Throwable t) {
@@ -89,6 +85,7 @@ public class PokemonListFragment extends Fragment {
                 Log.e("API", "Failed to load pokémon list", t);
             }
         });
+
         return view;
     }
 
