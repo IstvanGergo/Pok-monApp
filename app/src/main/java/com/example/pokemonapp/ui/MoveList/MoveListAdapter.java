@@ -48,13 +48,15 @@ public class MoveListAdapter extends RecyclerView.Adapter<MoveHolder>{
         }
         holder.accuracyValue.setText(accuracy);
         String name = move.getName();
-        String displayName =  name.substring(0,1).toUpperCase() + name.substring(1, name.length());
+        String displayName =  name.substring(0,1).toUpperCase() + name.substring(1);
         displayName = displayName.replaceAll("-", " ");
         holder.moveName.setText(displayName);
         holder.ppValue.setText(Integer.toString(move.getPp()));
 
         holder.powerValue.setText(power);
-        holder.typeValue.setText(move.getType().name);
+        String typeName = move.getType().name;
+        String displayType = typeName.substring(0,1).toUpperCase() + typeName.substring(1);
+        holder.typeValue.setText(displayType);
     }
     @Override
     public int getItemCount() {
