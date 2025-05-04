@@ -19,17 +19,16 @@
         android:textStyle="bold"
         android:src="@drawable/bulbasaur"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
     <TextView
         android:id="@+id/pokemonName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5sp"
-        android:gravity="center"
+        android:textSize="18sp"
         app:layout_constraintTop_toTopOf="@id/pokemonSprite"
         app:layout_constraintStart_toEndOf="@id/pokemonSprite"
-        tools:text="Bulbasaur"  />
+        tools:text="Bulbasaur" />
     <TextView
         android:id="@+id/healthLabel"
         android:layout_width="wrap_content"

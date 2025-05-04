@@ -1,0 +1,17 @@
+package com.example.pokemonapp.model.Type;
+
+import androidx.annotation.NonNull;
+
+public class BasicType {
+    private String name;
+    private String url;
+
+    public String getUrl() {
+        return url;
+    }
+    @NonNull
+    @Override
+    public String toString() {
+        return name;
+    }
+}

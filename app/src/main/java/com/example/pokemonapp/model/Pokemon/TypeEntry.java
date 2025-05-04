@@ -1,8 +1,8 @@
 package com.example.pokemonapp.model.Pokemon;
 
-import com.example.pokemonapp.model.TypeDto;
+import com.example.pokemonapp.model.Type.BasicType;
 
 public class TypeEntry {
     public int slot;
-    public TypeDto type;
+    public BasicType type;
 }

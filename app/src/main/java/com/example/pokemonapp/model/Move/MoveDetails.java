@@ -3,7 +3,7 @@ package com.example.pokemonapp.model.Move;
 import java.util.List;
 
 import com.example.pokemonapp.model.Pokemon.Pokemon;
-import com.example.pokemonapp.model.Type;
+import com.example.pokemonapp.model.Type.Type;
 import com.google.gson.annotations.SerializedName;
 public class MoveDetails {
     private Integer id;
