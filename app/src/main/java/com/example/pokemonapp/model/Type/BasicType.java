@@ -6,6 +6,9 @@ public class BasicType {
     private String name;
     private String url;
 
+    public BasicType(String _name) {
+        this.name= _name;
+    }
     public String getUrl() {
         return url;
     }

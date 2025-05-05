@@ -15,11 +15,13 @@ import com.example.pokemonapp.model.Pokemon.StatEntry;
 import java.util.List;
 
 public class PokemonListAdapter extends RecyclerView.Adapter<PokemonHolder> {
+    public interface OnPokemonClickListener {
+        void onPokemonClick(Pokemon pokemon);
+    }
     private List<Pokemon> pokemonList;
     private PokemonListFragment fragment;
     public PokemonListAdapter(List<Pokemon> _pokemonList, PokemonListFragment _fragment){
         this.pokemonList = _pokemonList;
-        this.fragment = _fragment;
     }
     @NonNull
     @Override
@@ -31,6 +33,9 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonHolder> {
     @Override
     public void onBindViewHolder(@NonNull PokemonHolder holder, int position) {
         Pokemon pokemon = pokemonList.get(position);
+        holder.itemView.setOnClickListener(v->{
+            // TODO: open details
+        });
         List<StatEntry> stats = pokemon.getStats();
         for(StatEntry entry : stats){
             switch(entry.stat.name){

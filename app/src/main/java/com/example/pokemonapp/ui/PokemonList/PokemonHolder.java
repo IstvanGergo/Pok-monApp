@@ -19,6 +19,7 @@ public class PokemonHolder extends RecyclerView.ViewHolder {
     public TextView speedValue;
     public TextView weightValue;
     public ImageView sprite;
+    public RecyclerView pokemonMovesRecyclerView;
     public PokemonHolder(@NonNull View itemView) {
         super(itemView);
         pokemonName = itemView.findViewById(R.id.pokemonName);
@@ -31,5 +32,6 @@ public class PokemonHolder extends RecyclerView.ViewHolder {
         speedValue = itemView.findViewById(R.id.speedValue);
         weightValue = itemView.findViewById(R.id.weightValue);
         sprite = itemView.findViewById(R.id.pokemonSprite);
+        pokemonMovesRecyclerView = itemView.findViewById(R.id.pokemonMovesRecyclerView);
     }
 }

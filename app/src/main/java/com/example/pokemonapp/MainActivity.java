@@ -25,24 +25,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Toolbar beállítása
         Toolbar toolbar = findViewById(R.id.mainToolbar);
         setSupportActionBar(toolbar);
 
-        // Címsor módosítása
-        setTitle("Navigation app");
+        setTitle("Pokemon app");
 
-        // Navigation beállítása
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.nav_host_fragment);
         navController = navHostFragment.getNavController();
 
-        // Top level destinations beállítása
         appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.homeFragment, R.id.moveListFragment, R.id.pokemonListFragment, R.id.nav_host_fragment
         ).build();
 
-        // NavigationUI összekapcsolása
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
     }
 

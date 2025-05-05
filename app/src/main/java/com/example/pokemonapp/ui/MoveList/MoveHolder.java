@@ -16,9 +16,9 @@ public class MoveHolder extends RecyclerView.ViewHolder {
     public MoveHolder(@NonNull View itemView){
         super(itemView);
         moveName = itemView.findViewById(R.id.moveName);
-        accuracyValue=itemView.findViewById(R.id.accuracyValue);
-        powerValue=itemView.findViewById(R.id.powerValue);
-        typeValue=itemView.findViewById(R.id.typeValue);
-        ppValue=itemView.findViewById(R.id.ppValue);
+        accuracyValue = itemView.findViewById(R.id.accuracyValue);
+        powerValue = itemView.findViewById(R.id.powerValue);
+        typeValue = itemView.findViewById(R.id.typeValue);
+        ppValue = itemView.findViewById(R.id.ppValue);
     }
 }
