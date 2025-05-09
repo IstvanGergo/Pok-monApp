@@ -2,7 +2,7 @@ package com.example.pokemonapp.data;
 
 import com.example.pokemonapp.model.Pokemon.AllPokemons;
 import com.example.pokemonapp.model.Pokemon.Pokemon;
-import com.example.pokemonapp.model.Type.TypeDetail;
+import com.example.pokemonapp.model.Pokemon.TypeDetail;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

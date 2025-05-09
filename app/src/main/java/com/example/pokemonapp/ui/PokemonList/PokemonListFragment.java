@@ -11,7 +11,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,7 +22,7 @@ import com.example.pokemonapp.model.Pokemon.BasicPokemon;
 import com.example.pokemonapp.model.Pokemon.Pokemon;
 import com.example.pokemonapp.model.Type.AllTypes;
 import com.example.pokemonapp.model.Type.BasicType;
-import com.example.pokemonapp.model.Type.TypeDetail;
+import com.example.pokemonapp.model.Pokemon.TypeDetail;
 import com.example.pokemonapp.model.Type.TypePokemonSlot;
 
 import retrofit2.Call;
@@ -48,7 +47,6 @@ public class PokemonListFragment extends Fragment {
     private Button searchByNameButton;
     private Button searchByTypeButton;
     private Spinner spinner;
-    private List<BasicPokemon> basicList= new ArrayList<>();
     private List<Pokemon> pokemons = new ArrayList<>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -75,11 +73,11 @@ public class PokemonListFragment extends Fragment {
             @Override
             public void onResponse(Call<AllPokemons> call, Response<AllPokemons> response) {
                 if (!response.isSuccessful()) {
-                    Log.w("MainActivity - onStart",
+                    Log.w("Get all pokemons",
                             "Response code: " + response.code());
                     return;
                 }
-                basicList = response.body().getResults();
+                List<BasicPokemon>  basicList = response.body().getResults();
                 for( BasicPokemon basic : basicList){
                     pokemonClient.getPokemonDetail(basic.url).enqueue(new Callback<Pokemon>() {
                         @Override
@@ -125,7 +123,6 @@ public class PokemonListFragment extends Fragment {
                 }
             });
         });
-
     }
     public void initSearchTypeButton(){
         searchByTypeButton.setOnClickListener(view->
@@ -150,19 +147,17 @@ public class PokemonListFragment extends Fragment {
                                 if(pokemons.size() == typePokemons.size()){
                                     pokemons.sort(Comparator.comparingInt(Pokemon::getId));
                                     adapter.notifyDataSetChanged();
+                                    pokemonRecyclerView.refreshDrawableState();
                                 }
                             }
-
                             @Override
                             public void onFailure(Call<Pokemon> call, Throwable t) {
-
                             }
                         });
                     }
                 }
                 @Override
                 public void onFailure(Call<TypeDetail> call, Throwable t) {
-
                 }
             });
         });

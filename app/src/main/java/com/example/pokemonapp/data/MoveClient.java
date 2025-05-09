@@ -2,6 +2,7 @@ package com.example.pokemonapp.data;
 
 import com.example.pokemonapp.model.Move.AllMoves;
 import com.example.pokemonapp.model.Move.MoveDetails;
+import com.example.pokemonapp.model.Move.TypeDetail;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -16,5 +17,7 @@ public interface MoveClient {
     @GET
     Call<MoveDetails> getMoveDetail(@Url String url);
     @GET("move/")
-    Call<MoveClient> getSpecificMove(@Query("") String moveName);
+    Call<MoveDetails> getSpecificMove(@Query("") String moveName);
+    @GET
+    Call<TypeDetail> getMovesByType(@Url String url);
 }

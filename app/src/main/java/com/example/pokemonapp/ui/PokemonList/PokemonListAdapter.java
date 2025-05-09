@@ -1,10 +1,13 @@
 package com.example.pokemonapp.ui.PokemonList;
 
+import android.animation.ValueAnimator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -33,8 +36,16 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonHolder> {
     @Override
     public void onBindViewHolder(@NonNull PokemonHolder holder, int position) {
         Pokemon pokemon = pokemonList.get(position);
+        MoveAdapter moveAdapter = new MoveAdapter(pokemon.getMoves());
+        holder.pokemonMovesRecyclerView.setLayoutManager(new GridLayoutManager(holder.itemView.getContext(),2));
+        holder.pokemonMovesRecyclerView.setAdapter(moveAdapter);
+        holder.pokemonMovesRecyclerView.setNestedScrollingEnabled(false);
         holder.itemView.setOnClickListener(v->{
-            // TODO: open details
+            if (holder.pokemonMovesRecyclerView.getVisibility() == View.VISIBLE) {
+                holder.pokemonMovesRecyclerView.setVisibility(View.GONE);
+            } else {
+                holder.pokemonMovesRecyclerView.setVisibility(View.VISIBLE);
+            }
         });
         List<StatEntry> stats = pokemon.getStats();
         for(StatEntry entry : stats){

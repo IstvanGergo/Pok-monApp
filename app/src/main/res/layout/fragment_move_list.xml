@@ -8,7 +8,7 @@
     tools:context=".ui.MoveList.MoveListFragment">
 
     <EditText
-        android:id="@+id/searchMoveByName"
+        android:id="@+id/searchByNameText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -18,11 +18,11 @@
         android:ems="10"
         android:hint="@string/search_by_name"
         android:inputType="text"
-        app:layout_constraintEnd_toStartOf="@+id/moveSearchByNameButton"
+        app:layout_constraintEnd_toStartOf="@+id/searchByNameButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
     <Button
-        android:id="@+id/moveSearchByNameButton"
+        android:id="@+id/searchByNameButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -37,19 +37,18 @@
         android:layout_marginTop="16dp"
         android:textSize="18sp"
         android:text="@string/type"
-        app:layout_constraintStart_toStartOf="@id/searchMoveByName"
-        app:layout_constraintTop_toBottomOf="@id/searchMoveByName"
+        app:layout_constraintStart_toStartOf="@id/searchByNameText"
+        app:layout_constraintTop_toBottomOf="@id/searchByNameText"
         />
     <Spinner
-        android:id="@+id/searchMoveByType"
+        android:id="@+id/searchByType"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintTop_toBottomOf="@id/searchMoveByName"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@id/searchByNameText"
         app:layout_constraintStart_toEndOf="@+id/typeText" />
-
     <Button
         android:id="@+id/searchByTypeButton"
         android:layout_width="wrap_content"
@@ -58,7 +57,7 @@
         android:layout_marginEnd="8dp"
         android:text="@string/search_by_type"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/moveSearchByNameButton" />
+        app:layout_constraintTop_toBottomOf="@+id/searchByNameButton" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/moveRecyclerView"
@@ -66,7 +65,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/searchMoveByType"
+        app:layout_constraintTop_toBottomOf="@+id/searchByType"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
