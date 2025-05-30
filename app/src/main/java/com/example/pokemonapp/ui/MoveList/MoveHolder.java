@@ -13,6 +13,7 @@ public class MoveHolder extends RecyclerView.ViewHolder {
     public TextView powerValue;
     public TextView typeValue;
     public TextView ppValue;
+    public RecyclerView canBeLearntByView;
     public MoveHolder(@NonNull View itemView){
         super(itemView);
         moveName = itemView.findViewById(R.id.moveName);
@@ -20,5 +21,6 @@ public class MoveHolder extends RecyclerView.ViewHolder {
         powerValue = itemView.findViewById(R.id.powerValue);
         typeValue = itemView.findViewById(R.id.typeValue);
         ppValue = itemView.findViewById(R.id.ppValue);
+        canBeLearntByView = itemView.findViewById(R.id.canBeLearntByView);
     }
 }

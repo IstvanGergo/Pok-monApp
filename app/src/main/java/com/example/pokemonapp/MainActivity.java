@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         navController = navHostFragment.getNavController();
 
         appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.homeFragment, R.id.moveListFragment, R.id.pokemonListFragment, R.id.nav_host_fragment
+                R.id.teamListFragment, R.id.moveListFragment, R.id.pokemonListFragment, R.id.nav_host_fragment
         ).build();
 
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
@@ -57,9 +57,5 @@ public class MainActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
-    }
-
-    public void navigateToHome() {
-        navController.navigate(R.id.homeFragment);
     }
 }

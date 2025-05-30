@@ -2,7 +2,7 @@ package com.example.pokemonapp.model.Move;
 
 import java.util.List;
 
-import com.example.pokemonapp.model.Pokemon.Pokemon;
+import com.example.pokemonapp.model.Pokemon.BasicPokemon;
 import com.example.pokemonapp.model.Type.Type;
 import com.google.gson.annotations.SerializedName;
 public class MoveDetails {
@@ -12,7 +12,7 @@ public class MoveDetails {
     private Integer pp;
     private String name;
     @SerializedName("learned_by_pokemon")
-    private List<Pokemon> canBeLearntBy;
+    private List<BasicPokemon> canBeLearntBy;
     private Type type;
     @SerializedName("damage_class")
     private DamageClass damageClass;
@@ -24,7 +24,7 @@ public class MoveDetails {
     public Type getType() { return type; }
     public DamageClass getDamageClass() { return damageClass; }
     public List<StatChange> getStatChanges() { return statChanges; }
-    public List<Pokemon> getCanBeLearntBy() { return canBeLearntBy; }
+    public List<BasicPokemon> getCanBeLearntBy() { return canBeLearntBy; }
     public String getName() { return name; }
     public Integer getPp() { return pp; }
     public Integer getPower() {

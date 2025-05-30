@@ -5,20 +5,20 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pokemonapp.R;
 import com.example.pokemonapp.model.Move.MoveDetails;
+import com.example.pokemonapp.model.Pokemon.BasicPokemon;
 
 import java.util.List;
 
 public class MoveListAdapter extends RecyclerView.Adapter<MoveHolder>{
     private List<MoveDetails> moveList;
-    private MoveListFragment fragment;
 
-    public MoveListAdapter(List<MoveDetails> _moveList, MoveListFragment _fragment){
+    public MoveListAdapter(List<MoveDetails> _moveList){
         this.moveList = _moveList;
-        this.fragment = _fragment;
     }
     @NonNull
     @Override
@@ -30,6 +30,18 @@ public class MoveListAdapter extends RecyclerView.Adapter<MoveHolder>{
     @Override
     public void onBindViewHolder(@NonNull MoveHolder holder, int position) {
         MoveDetails move = moveList.get(position);
+        List<BasicPokemon> pokemons = move.getCanBeLearntBy();
+        PokemonAdapter pokemonAdapter = new PokemonAdapter(pokemons);
+        holder.canBeLearntByView.setLayoutManager(new GridLayoutManager(holder.itemView.getContext(),2));
+        holder.canBeLearntByView.setAdapter(pokemonAdapter);
+        holder.canBeLearntByView.setNestedScrollingEnabled(false);
+        holder.itemView.setOnClickListener(v->{
+            if (holder.canBeLearntByView.getVisibility() == View.VISIBLE) {
+                holder.canBeLearntByView.setVisibility(View.GONE);
+            } else {
+                holder.canBeLearntByView.setVisibility(View.VISIBLE);
+            }
+        });
         String accuracy;
         if(move.getAccuracy() != 0)
         {

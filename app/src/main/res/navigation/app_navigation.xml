@@ -15,4 +15,9 @@
         android:name="com.example.pokemonapp.ui.PokemonList.PokemonListFragment"
         android:label="Pokémons"
         tools:layout="@layout/fragment_pokemon_list" />
+    <fragment
+        android:id="@+id/teamListFragment"
+        android:name="com.example.pokemonapp.ui.TeamList.TeamListFragment"
+        android:label="Teams"
+        tools:layout="@layout/fragment_team_list" />
 </navigation>

@@ -1,10 +1,6 @@
 package com.example.pokemonapp.model.Pokemon;
 
-import com.example.pokemonapp.model.Move.Move;
-import com.google.gson.annotations.SerializedName;
-
 import java.util.List;
-import java.util.Map;
 
 public class Pokemon {
     private Integer id;

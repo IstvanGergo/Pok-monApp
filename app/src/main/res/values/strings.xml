@@ -12,4 +12,6 @@
     <string name="speed">Speed:</string>
     <string name="weight">Weight:</string>
     <string name="search_by_type">Search by type</string>
+    <string name="add_new_team">Add new Team</string>
+    <string name="new_team_name">New Team\'s name</string>
 </resources>

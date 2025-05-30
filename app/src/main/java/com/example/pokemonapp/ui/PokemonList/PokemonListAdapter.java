@@ -1,13 +1,11 @@
 package com.example.pokemonapp.ui.PokemonList;
 
-import android.animation.ValueAnimator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -18,12 +16,8 @@ import com.example.pokemonapp.model.Pokemon.StatEntry;
 import java.util.List;
 
 public class PokemonListAdapter extends RecyclerView.Adapter<PokemonHolder> {
-    public interface OnPokemonClickListener {
-        void onPokemonClick(Pokemon pokemon);
-    }
     private List<Pokemon> pokemonList;
-    private PokemonListFragment fragment;
-    public PokemonListAdapter(List<Pokemon> _pokemonList, PokemonListFragment _fragment){
+    public PokemonListAdapter(List<Pokemon> _pokemonList){
         this.pokemonList = _pokemonList;
     }
     @NonNull
@@ -47,7 +41,20 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonHolder> {
                 holder.pokemonMovesRecyclerView.setVisibility(View.VISIBLE);
             }
         });
-        List<StatEntry> stats = pokemon.getStats();
+
+        displayPokemonStats(holder,pokemon.getStats());
+        Glide.with(holder.itemView)
+                .load(pokemon.getSprites().frontSpriteUrl)
+                .into(holder.sprite);
+        String name = pokemon.getName();
+        String nameDisplay = name.substring(0,1).toUpperCase() + name.substring(1, name.length());
+        holder.pokemonName.setText(nameDisplay);
+        String heightDisplay = ((double)pokemon.getHeight() / 10 )  + " m";
+        holder.heightValue.setText(heightDisplay);
+        String weightDisplay = ((double)pokemon.getWeight() / 10) + " kg";
+        holder.weightValue.setText(weightDisplay);
+    }
+    public void displayPokemonStats(PokemonHolder holder, List<StatEntry> stats){
         for(StatEntry entry : stats){
             switch(entry.stat.name){
                 case "hp":
@@ -72,17 +79,8 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonHolder> {
                     break;
             }
         }
-        Glide.with(holder.itemView)
-                .load(pokemon.getSprites().frontSpriteUrl)
-                .into(holder.sprite);
-        String name = pokemon.getName();
-        String nameDisplay = name.substring(0,1).toUpperCase() + name.substring(1, name.length());
-        holder.pokemonName.setText(nameDisplay);
-        String heightDisplay = ((double)pokemon.getHeight() / 10 )  + " m";
-        holder.heightValue.setText(heightDisplay);
-        String weightDisplay = ((double)pokemon.getWeight() / 10) + " kg";
-        holder.weightValue.setText(weightDisplay);
     }
+
     @Override
     public int getItemCount() {
         return pokemonList.size();

@@ -22,7 +22,7 @@ public class MoveAdapter extends RecyclerView.Adapter<MoveHolder> {
     @Override
     public MoveHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.pokemon_move_list_row, parent, false);
+                .inflate(R.layout.basic_move_list_row, parent, false);
         return new MoveHolder(itemView);
     }
     @NonNull

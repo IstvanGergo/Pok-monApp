@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/homeFragment"
-        android:title="Team"
+        android:id="@+id/teamListFragment"
+        android:title="Teams"
         app:showAsAction="never" />
 
     <item

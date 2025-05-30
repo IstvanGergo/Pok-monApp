@@ -24,12 +24,14 @@ import com.example.pokemonapp.model.Type.AllTypes;
 import com.example.pokemonapp.model.Type.BasicType;
 import com.example.pokemonapp.model.Pokemon.TypeDetail;
 import com.example.pokemonapp.model.Type.TypePokemonSlot;
+import com.example.pokemonapp.ui.utility;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.internal.EverythingIsNonNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -57,45 +59,28 @@ public class PokemonListFragment extends Fragment {
         initSearchTypeButton();
         // Fill type Spinner with data
         Call<AllTypes> typesCall = typeClient.getAllTypes();
-        typesCall.enqueue(new Callback<AllTypes>() {
+        typesCall.enqueue(new Callback<>() {
             @Override
+            @EverythingIsNonNull
             public void onResponse(Call<AllTypes> call, Response<AllTypes> response) {
-                processTypeResponse(response);
+                utility.processTypeResponse(response, spinner, requireContext());
             }
             @Override
+            @EverythingIsNonNull
             public void onFailure(Call<AllTypes> call, Throwable t) {
                 Log.e("Spinner", "Failed to load type list", t);
             }
         });
         // API call for pokemons
         Call<AllPokemons> call = pokemonClient.getAllPokemons();
-        call.enqueue(new Callback<AllPokemons>() {
+        call.enqueue(new Callback<>() {
             @Override
+            @EverythingIsNonNull
             public void onResponse(Call<AllPokemons> call, Response<AllPokemons> response) {
-                if (!response.isSuccessful()) {
-                    Log.w("Get all pokemons",
-                            "Response code: " + response.code());
-                    return;
-                }
-                List<BasicPokemon>  basicList = response.body().getResults();
-                for( BasicPokemon basic : basicList){
-                    pokemonClient.getPokemonDetail(basic.url).enqueue(new Callback<Pokemon>() {
-                        @Override
-                        public void onResponse(Call<Pokemon> call, Response<Pokemon> response) {
-                            processPokemonResponse(response);
-                            if(pokemons.size() == basicList.size()){
-                                pokemons.sort(Comparator.comparingInt(Pokemon::getId));
-                                adapter.notifyItemRangeInserted(0, pokemons.size());
-                            }
-                        }
-                        @Override
-                        public void onFailure(Call<Pokemon> call, Throwable t) {
-                            Log.e("POKEMON", "Failed to load " + basic.name, t);
-                        }
-                    });
-                }
+                fetchPokemonDetails(response);
             }
             @Override
+            @EverythingIsNonNull
             public void onFailure(Call<AllPokemons> call, Throwable t) {
                 Log.e("API", "Failed to load pokémon list", t);
             }
@@ -107,17 +92,22 @@ public class PokemonListFragment extends Fragment {
         {
             String name = searchByNameText.getText().toString().toLowerCase().replaceAll(" ", "");
             Call<Pokemon> call = pokemonClient.getSpecificPokemon(name);
-            call.enqueue(new Callback<Pokemon>() {
+            call.enqueue(new Callback<>() {
                 @Override
+                @EverythingIsNonNull
                 public void onResponse(Call<Pokemon> call, Response<Pokemon> response) {
-                    if(response.isSuccessful()){
-                    Log.w("Search By Name: ", name);
-                    pokemons.clear();
-                    processPokemonResponse(response);
-                    adapter.notifyDataSetChanged();
+                    if( !response.isSuccessful() || response.body() == null ){
+                        Log.w("Search by name",
+                                "Response code: " + response.code());
+                        return;
                     }
+                    pokemons.clear();
+                    Pokemon newPokemon = response.body();
+                    pokemons.add(newPokemon);
+                    adapter.notifyDataSetChanged();
                 }
                 @Override
+                @EverythingIsNonNull
                 public void onFailure(Call<Pokemon> call, Throwable t) {
                     Log.e("Search", "failed fetching pokemon", t);
                 }
@@ -129,61 +119,77 @@ public class PokemonListFragment extends Fragment {
         {
             BasicType type = (BasicType) spinner.getSelectedItem();
             Call<TypeDetail> call = pokemonClient.getPokemonsByType(type.getUrl());
-            call.enqueue(new Callback<TypeDetail>() {
+            call.enqueue(new Callback<>() {
                 @Override
+                @EverythingIsNonNull
                 public void onResponse(Call<TypeDetail> call, Response<TypeDetail> response) {
-                    if(!response.isSuccessful()){
-                        Log.w("Fetch by type",
-                                "Response code: " + response.code());
-                        return;
-                    }
-                    pokemons.clear();
-                    List<TypePokemonSlot> typePokemons = response.body().pokemon;
-                    for(TypePokemonSlot pokemon : typePokemons ){
-                        pokemonClient.getPokemonDetail(pokemon.pokemon.url).enqueue(new Callback<Pokemon>() {
-                            @Override
-                            public void onResponse(Call<Pokemon> call, Response<Pokemon> response) {
-                                processPokemonResponse(response);
-                                if(pokemons.size() == typePokemons.size()){
-                                    pokemons.sort(Comparator.comparingInt(Pokemon::getId));
-                                    adapter.notifyDataSetChanged();
-                                    pokemonRecyclerView.refreshDrawableState();
-                                }
-                            }
-                            @Override
-                            public void onFailure(Call<Pokemon> call, Throwable t) {
-                            }
-                        });
-                    }
+                    fetchPokemonsByType(response);
                 }
                 @Override
+                @EverythingIsNonNull
                 public void onFailure(Call<TypeDetail> call, Throwable t) {
                 }
             });
         });
     }
 
-    public void processTypeResponse(Response<AllTypes> response) {
-        if(response.isSuccessful()){
-            List<BasicType> types = new ArrayList<>(Collections.singletonList(new BasicType("None")));
-            types.addAll(response.body().getResults());
-            spinner = view.findViewById(R.id.searchByType);
-            ArrayAdapter<BasicType> typeAdapter = new ArrayAdapter<>(
-                    requireContext(),
-                    android.R.layout.simple_spinner_item,
-                    types
-            );
-            spinner.setAdapter(typeAdapter);
+    public void fetchPokemonsByType(Response<TypeDetail> response){
+        if(!response.isSuccessful() || response.body() == null){
+            Log.w("Fetch by type",
+                    "Response code: " + response.code());
+            return;
+        }
+        pokemons.clear();
+        List<TypePokemonSlot> typePokemons = response.body().pokemon;
+        for(TypePokemonSlot pokemon : typePokemons ){
+            pokemonClient.getPokemonDetail(pokemon.pokemon.url).enqueue(new Callback<>() {
+                @Override
+                @EverythingIsNonNull
+                public void onResponse(Call<Pokemon> call, Response<Pokemon> response) {
+                    Pokemon newPokemon = response.body();
+                    pokemons.add(newPokemon);
+                    if(pokemons.size() == typePokemons.size()){
+                        pokemons.sort(Comparator.comparingInt(Pokemon::getId));
+                        adapter.notifyDataSetChanged();
+                        pokemonRecyclerView.refreshDrawableState();
+                    }
+                }
+                @Override
+                @EverythingIsNonNull
+                public void onFailure(Call<Pokemon> call, Throwable t) {
+                }
+            });
         }
     }
-    public void processPokemonResponse(Response<Pokemon> response){
-        if(!response.isSuccessful())
-        {
-            Log.w("Fetch pokemon",
+    public void fetchPokemonDetails(Response<AllPokemons> response) {
+        if (!response.isSuccessful() || response.body() == null) {
+            Log.w("Get all pokemons",
                     "Response code: " + response.code());
+            return;
         }
-        Pokemon newPokemon = response.body();
-        pokemons.add(newPokemon);
+        List<BasicPokemon> basicList = response.body().getResults();
+        for( BasicPokemon basic : basicList){
+            pokemonClient.getPokemonDetail(basic.url).enqueue(new Callback<>() {
+                @Override
+                @EverythingIsNonNull
+                public void onResponse(Call<Pokemon> call, Response<Pokemon> response) {
+                    if(!response.isSuccessful() || response.body() == null){
+                        return;
+                    }
+                    Pokemon newPokemon = response.body();
+                    pokemons.add(newPokemon);
+                    if(pokemons.size() == basicList.size()){
+                        pokemons.sort(Comparator.comparingInt(Pokemon::getId));
+                        adapter.notifyItemRangeInserted(0, pokemons.size());
+                    }
+                }
+                @Override
+                @EverythingIsNonNull
+                public void onFailure(Call<Pokemon> call, Throwable t) {
+                    Log.e("POKEMON", "Failed to load " + basic.name, t);
+                }
+            });
+        }
     }
     public void initializeView(){
         retrofit = new Retrofit.Builder()
@@ -195,7 +201,8 @@ public class PokemonListFragment extends Fragment {
         pokemonRecyclerView = view.findViewById(R.id.pokemonRecyclerView);
         RecyclerView.LayoutManager layoutManager =
                 new LinearLayoutManager(getActivity());
-        adapter = new PokemonListAdapter(pokemons, this);
+        adapter = new PokemonListAdapter(pokemons);
+        spinner = view.findViewById(R.id.searchByType);
         pokemonRecyclerView.setAdapter(adapter);
         pokemonRecyclerView.setLayoutManager(layoutManager);
         searchByNameText = view.findViewById(R.id.searchByNameText);
