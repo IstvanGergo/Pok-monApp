@@ -5,7 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pokemonapp.R;
@@ -31,7 +31,7 @@ public class TeamListAdapter extends RecyclerView.Adapter<TeamHolder>{
         TeamWithPokemons team = teamList.get(position);
         List<PokemonDB> pokemons = team.pokemons;
         PokemonAdapter pokemonAdapter = new PokemonAdapter(pokemons);
-        holder.teamView.setLayoutManager(new GridLayoutManager(holder.itemView.getContext(),2));
+        holder.teamView.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));
         holder.teamView.setAdapter(pokemonAdapter);
         holder.teamView.setNestedScrollingEnabled(false);
         holder.teamName.setText(team.team.TeamName);
